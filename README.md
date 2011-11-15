@@ -12,17 +12,17 @@ Usage
 -----
 
 To fetch all talks just:
-``` bash
+```
 gimme_the_talks.py
 ```
 
 List the available talks using:
-``` bash
+```
 gimme_the_talks.py -l
 ```
 
 To fetch only some talks use:
-``` bash
+```
 gimme_the_talks.py 199 218 221
 ```
 
