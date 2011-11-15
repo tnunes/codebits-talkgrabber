@@ -1,0 +1,8 @@
+.project
+.pydevproject
+.pyc
+.settings
+.DS_Store
+*~
+*.json
+*.mp4
