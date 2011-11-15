@@ -4,8 +4,8 @@ Codebits TalkGrabber
 * Attended Codebits but couldn't watch all the talks?
 * Did not attend Codebits but want to watch the talks at home?
 
-This simple Python script downloads all talks videos and presentation files
-for you.
+This simple Python script helps you download talks videos
+and presentation files.
 
 
 Usage
