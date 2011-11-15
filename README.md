@@ -27,9 +27,10 @@ To fetch only some talks use:
 ```
 gimme_the_talks.py 199 218 221
 ```
+where 199, 218 and 221 are IDs of talks you want to download.
 
 By default talk metadata is stored as .json files alongside the videos. To
-skip the creation of those files, use:
+skip creation of those files, use:
 ```
 gimme_the_talks.py -d
 ```
@@ -37,7 +38,7 @@ gimme_the_talks.py -d
 Help:
 
 ```
-./gimme_the_talks.py -h
+$ ./gimme_the_talks.py -h
 Usage: gimme_the_talks.py [options] [talk-x-id talk-y-id ...]
 
 Downloads Codebits Talks videos and presentations. By default fetches all
@@ -55,6 +56,6 @@ Options:
 License
 -------
 
-Copyright 2011 (C) Tiago Nunes
+Copyright (C) 2011 Tiago Nunes
 
 Licensed under the MIT License

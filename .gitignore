@@ -1,8 +1,8 @@
 .project
 .pydevproject
-.pyc
 .settings
 .DS_Store
 *~
+*.pyc
 *.json
 *.mp4

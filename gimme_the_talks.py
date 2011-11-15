@@ -12,6 +12,8 @@ Fetches Codebits talks videos and presentation files.
 @author: Tiago Nunes (@tsbnunes) <tiago.nunes [at] ua.pt>
 @license: MIT License
 
+Copyright (C) 2011 Tiago Nunes
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
 in the Software without restriction, including without limitation the rights
@@ -86,16 +88,31 @@ def download_file(url, filename, buffer_size=BUFFER_SIZE, report_progress=True):
         else: # start download
             downloaded_file = open(filename, 'wb')
             downloaded_bytes = 0
-            
-        response = urllib2.urlopen(request)
+        
+        try:    
+            response = urllib2.urlopen(request)
+        except Exception, e:
+            print >> sys.stderr, "> Couldn't request file at %s - %s" % (url, e)
+            return -1
+        
         file_size = int(response.headers['Content-Length']) 
         if file_size == 0 or \
            file_size == downloaded_bytes:
             print '> File "%s" is already here. Skipping download' % (filename)
-            return
+            return 0
         
         if downloaded_bytes > 0:
-            print '> File "%s" is partially downloaded. Resuming' % (filename)
+            if response.headers['Content-Range']:
+                print '> File "%s" is partially downloaded. Resuming' \
+                      % (filename)
+                file_size += downloaded_bytes
+            else:
+                print '> File "%s" is partially downloaded but server does ' \
+                      'not support resume. Restarting download'
+                downloaded_file.close()
+                downloaded_file = open(filename, 'wb')
+                downloaded_bytes = 0
+            
         
         while True:
             data = response.read(buffer_size)
@@ -110,6 +127,8 @@ def download_file(url, filename, buffer_size=BUFFER_SIZE, report_progress=True):
                 print progress,
         if report_progress:
             print
+        
+        return downloaded_bytes
     finally:
         if response: response.close()
         if downloaded_file: downloaded_file.close()
@@ -161,7 +180,7 @@ def download_talks(talks, store_metadata=True):
             talk_metadata_filename = talk_filename + '.json'
             talk_metadata_file = open(talk_metadata_filename, 'wt')
             json.dump(talk, talk_metadata_file, sort_keys=True, indent=4)
-            print '> Saved talk %s metadata at %s' % (talk['id'],
+            print '> Saved talk %s metadata to %s' % (talk['id'],
                                                       talk_metadata_filename)
             talk_metadata_file.close()
 
@@ -219,8 +238,8 @@ def main():
     try:
         events = fetch_calendar()
     except Exception, e:
-        print >> sys.stderr, "> Couldn't fetch Codebits calendar - %s" % (e)
-        sys.exit(-1)
+        print >> sys.stderr, "\n> Couldn't fetch Codebits calendar - %s" % (e)
+        return
     print 'done.'
     
     # events with id are talks
@@ -245,4 +264,3 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         pass
-        
