@@ -76,6 +76,8 @@ def download_file(url, filename, buffer_size=BUFFER_SIZE, report_progress=True):
     Download file to disk, resuming a broken download if possible
     '''
     request = urllib2.Request(url=url)
+    response = None
+    downloaded_file = None
     try:
         if os.path.exists(filename): # resume download
             downloaded_file = open(filename, 'ab')
