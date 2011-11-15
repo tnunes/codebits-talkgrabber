@@ -147,7 +147,7 @@ def list_talks(talks):
           'and %d slideshare links' % (len(talks), video_count,
                                        presentation_count, slideshare_count)
 
-def download_talks(talks):
+def download_talks(talks, store_metadata=True):
     '''
     Download selected talks videos, presentations and slideshare presentations
     '''
@@ -157,12 +157,13 @@ def download_talks(talks):
         print_talk_summary(talk)
         
         talk_filename = sanitize_filename(talk['title'])
-        talk_metadata_filename = talk_filename + '.json'
-        talk_metadata_file = open(talk_metadata_filename, 'wt')
-        json.dump(talk, talk_metadata_file, sort_keys=True, indent=4)
-        print '> Saved talk %s metadata at %s' % (talk['id'],
-                                                  talk_metadata_filename)
-        talk_metadata_file.close()
+        if store_metadata:
+            talk_metadata_filename = talk_filename + '.json'
+            talk_metadata_file = open(talk_metadata_filename, 'wt')
+            json.dump(talk, talk_metadata_file, sort_keys=True, indent=4)
+            print '> Saved talk %s metadata at %s' % (talk['id'],
+                                                      talk_metadata_filename)
+            talk_metadata_file.close()
 
         if talk['video']:
             video_count += 1
@@ -207,6 +208,9 @@ def main():
     parser = OptionParser(usage=usage, description=description)
     parser.add_option('-l', '--list', action='store_true', dest='list',
                       help='list available talks and exit')
+    parser.add_option('-d', '--discard-metadata', action='store_false',
+                      dest='store_metadata', default=True,
+                      help="don't save talk metadata as .json files")
     
     (options, args) = parser.parse_args()
 
@@ -233,7 +237,7 @@ def main():
             parser.error('No talks with ID(s) %s' % (missing_talks))
         talks = [talk for talk in talks if talk['id'] in talk_ids]
     
-    download_talks(talks)
+    download_talks(talks, options.store_metadata)
 
 
 if __name__ == '__main__':
