@@ -82,18 +82,18 @@ def download_file(url, filename, buffer_size=BUFFER_SIZE, report_progress=True):
             return 0
         
         if downloaded_bytes > 0:
-            if response.headers['Content-Range']:
+            if 'Content-Range' in response.headers:
                 print '> File "%s" is partially downloaded. Resuming' \
                       % (filename)
                 file_size += downloaded_bytes
             else:
                 print '> File "%s" is partially downloaded but server does ' \
-                      'not support resume. Restarting download'
+                      'not support resume. Restarting download' \
+                      % (filename)
                 downloaded_file.close()
                 downloaded_file = open(filename, 'wb')
                 downloaded_bytes = 0
-            
-        
+
         while True:
             data = response.read(buffer_size)
             if not data:
