@@ -10,29 +10,40 @@ Talk details are retrieved from the Codebits API (https://codebits.eu/s/api)
 and videos are downloaded as MP4 files from Sapo Videos (http://videos.sapo.pt).
 
 
+Requirements
+------------
+
+* Python 2.5 - 2.7
+
+No additional dependencies are required, unless you use Python 2.5, in which
+case you need ```simplejson```.
+
+A separate script version is available for Python 3 under the ```python3```
+branch.
+
 Usage
 -----
 
 To fetch all talks just:
 ```
-gimme_the_talks.py
+$ ./gimme_the_talks.py
 ```
 
 List available talks using:
 ```
-gimme_the_talks.py -l
+$ ./gimme_the_talks.py -l
 ```
 
 To fetch only some talks use:
 ```
-gimme_the_talks.py 199 218 221
+$ ./gimme_the_talks.py 199 218 221
 ```
 where 199, 218 and 221 are IDs of talks you want to download.
 
 By default talk metadata is stored as .json files alongside the videos. To
 skip creation of those files, use:
 ```
-gimme_the_talks.py -d
+$ ./gimme_the_talks.py -d
 ```
 
 Help:
