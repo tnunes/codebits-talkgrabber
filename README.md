@@ -67,6 +67,4 @@ Options:
 License
 -------
 
-Copyright (C) 2011 Tiago Nunes
-
-Licensed under the MIT License
+Do What The Fuck You Want To Public License

@@ -10,7 +10,7 @@ Fetches Codebits talks videos and presentation files.
 
 @version: 0.1 (for Python 2)
 @author: Tiago Nunes (@tsbnunes) <tiago.nunes [at] ua.pt>
-@license: The MIT License
+@license: WTFPL (http://sam.zoy.org/wtfpl/)
 '''
 
 import urllib2
