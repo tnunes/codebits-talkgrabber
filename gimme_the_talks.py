@@ -215,11 +215,11 @@ def main():
 
     if args.talks:  # selective download
         args.talks = list(set(args.talks))  # remove duplicates
-        talk_ids = [talk['id'] for talk in talks if talk['id'] in args.talks]
+        talk_ids = [int(talk['id']) for talk in talks if int(talk['id']) in args.talks]
         if len(talk_ids) != len(args.talks):
             missing_talks = [id for id in args.talks if id not in talk_ids]
             ap.error('No talks with ID(s) %s' % (missing_talks))
-        talks = [talk for talk in talks if talk['id'] in talk_ids]
+        talks = [talk for talk in talks if int(talk['id']) in talk_ids]
 
     download_talks(talks, args.store_metadata)
 
