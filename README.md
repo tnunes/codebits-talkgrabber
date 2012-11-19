@@ -18,9 +18,6 @@ Requirements
 No additional dependencies are required, unless you use Python 2.5, in which
 case you need ```simplejson```.
 
-A separate script version is available for Python 3 under the ```python3```
-branch.
-
 Usage
 -----
 
@@ -36,7 +33,7 @@ $ ./gimme_the_talks.py -l
 
 To fetch only some talks use:
 ```
-$ ./gimme_the_talks.py 199 218 221
+$ ./gimme_the_talks.py -t 199 218 221
 ```
 where 199, 218 and 221 are IDs of talks you want to download.
 
@@ -50,16 +47,18 @@ Help:
 
 ```
 $ ./gimme_the_talks.py -h
-Usage: gimme_the_talks.py [options] [talk-x-id talk-y-id ...]
+usage: gimme_the_talks.py [-h] [-l] [-t talk-id [talk-id ...]] [-d]
 
-Downloads Codebits Talks videos and presentations. By default fetches all
-talks. Give talk IDs as arguments for selective download.
+Downloads Codebits Talks videos and presentations. Fetches all talks by
+default. Give talk IDs for selective download.
 
-Options:
+optional arguments:
   -h, --help            show this help message and exit
-  -l, --list            list available talks and exit
+  -l, --list            List available talks and exit
+  -t talk-id [talk-id ...], --talks talk-id [talk-id ...]
+                        IDs of talks to download
   -d, --discard-metadata
-                        don't save talk metadata as .json files
+                        Don't store .json files with talk metadata
 
 ```
 
